@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Data\Metadata.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Data\Data.csv" />
+    <None Include="Data\DataSources.csv" />
+    <None Include="Data\recommendations.sqlite" />
+    <None Include="Data\sample.sqlite" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FSharp.Data" Version="3.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TennisBetting\TennisBetting.fsproj" />
+  </ItemGroup>
+
+</Project>
