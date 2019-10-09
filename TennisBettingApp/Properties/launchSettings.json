@@ -1,7 +1,8 @@
 {
   "profiles": {
     "TennisBettingApp": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "commandLineArgs": "profit"
     }
   }
 }
