@@ -3,8 +3,9 @@
 open System.Data.SQLite
 open Dapper
 open common
+open TennisBetting
 
-type Tournament ={ atp:int64;location:string;name:string }
+
 
  let insertTournaments data=
     let databaseFilename = getFileName

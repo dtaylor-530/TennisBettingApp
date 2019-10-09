@@ -4,16 +4,17 @@ open System
 
 type DataSource ={Betfair:string; TennisData:string}
 open FSharp.Data
-open tournaments
 open Dapper
-open common
 
 module datasources =
     open System.Data.SQLite
     
+    let path = if System.IO.File.Exists(@"..\..\..\..\TennisBettingApp\Data\DataSources.csv") then
+                 (new System.IO.FileInfo(@"..\..\..\..\TennisBettingApp\Data\DataSources.csv")).FullName
+               else 
+                 (new System.IO.FileInfo(@"..\..\..\..\..\Data\DataSources.csv")).FullName
 
-
-    let data = CsvFile.Load(getFileName2 "DataSources.csv").Cache()
+    let data = CsvFile.Load(path).Cache()
 
     let convertToDouble (x:string) = match String.IsNullOrEmpty x with
                                         | false -> let y = x |> float 
@@ -42,10 +43,11 @@ module datasources =
             getline line |]
 
 
-     /////////////////////////////////
-     /// Fix
+            /////////////////////////////////
+            /// Fix
     let getPoints source=
-      let connectionStringFile = sprintf "Data Source=%s;Version=3;" getFileName       
+      let databaseFilename = "../../../Data/sample.sqlite"
+      let connectionStringFile = sprintf "Data Source=%s;Version=3;" databaseFilename      
    
       let connection =  new SQLiteConnection(connectionStringFile) 
       connection.Open() 
@@ -62,7 +64,7 @@ module datasources =
     let getATP (tournament:string) =
       let fn x =  x.Betfair = (tournament)
 
-      let a =  Array.tryFind fn (dataset |> Array.choose(fun u -> u)) 
+      let a =  Array.tryFind fn (dataset |> Array.choose( fun u -> u)) 
       match a with 
                 | Some x -> (match (getPoints x.TennisData |> Seq.tryHead) with 
                                                                 | Some x-> x.atp

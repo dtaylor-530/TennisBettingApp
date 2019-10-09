@@ -12,7 +12,7 @@ module results =
 
 
   let GetData =
-    let databaseFilename = @"C:\Users\declan.taylor\Source\Repos\PythonApplication1\PythonApplication1\event_data.sqlite"
+    let databaseFilename = @"C:\Users\declan.taylor\Source\Repos\BetfairScraper\BetfairScraper\event_data.sqlite"
     let connectionStringFile = sprintf "Data Source=%s;Version=3;" databaseFilename      
 
     let connection =  new SQLiteConnection(connectionStringFile) 

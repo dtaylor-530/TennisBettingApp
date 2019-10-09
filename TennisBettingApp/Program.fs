@@ -3,7 +3,7 @@ open TennisBetting
 open tournaments
 open datapoints
 open betfair
-
+open RegressionSmooth
 
 [<EntryPoint>]
 let main argv =
@@ -23,7 +23,7 @@ let main argv =
                 ]
         Console.WriteLine(r.Length)
     elif(arg1.Equals("profit")) then
-        let sum = profit.getProfits
+        let sum = profit.getProfitSum
         Console.WriteLine(sum)
     elif(arg1.Equals("test")) then
         let t = csv.dataset  |> Seq.choose id |> Seq.filter (fun c-> c.MaxL.HasValue)
@@ -47,11 +47,17 @@ let main argv =
         let result =  csv.dataset  |> Seq.choose id |> Seq.filter (fun c-> c.MaxL.HasValue)
                       |> Seq.groupBy (fun k -> k.ATP) 
                       |> Seq.map (fun (k, sequence) -> k, mod1.group sequence)  
-        let mappedData = result |> Seq.map( fun (y, po) -> [for (k, d:float, r:float, l:float, p) in po do
+        let mappedData = result |> Seq.map( fun (k, po) -> [for (k, d:float, r:float, l:float, p) in po do
                                                               let mean= d *100.0 |> int
                                                               let variance = r*100.0 |> int
                                                               let averagePremium =l*1000.0 |> int
-                                                              yield { atp= y |> int64; ratio = k  |> int64;mean= mean |> int64;variance = variance |> int64;avgPremium = averagePremium |> int64;weight = p |> int64 }])
+                                                              yield { 
+                                                              atp = k |> int64;
+                                                              ratio = k  |> int64;
+                                                              mean= mean |> int64;
+                                                              variance = variance |> int64;
+                                                              avgPremium = averagePremium |> int64;
+                                                              weight = p |> int64 }])
                          |> Seq.collect(fun x -> x)
         let points = datapoints.insertPoints(mappedData) |> string
         Console.WriteLine("Points inserted" + points )

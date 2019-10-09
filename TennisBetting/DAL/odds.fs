@@ -7,11 +7,10 @@ open betfair
 
 module odds =
 
- type Odds2 = {event_title:string; link:string; event_date:int64; A_name:string;A_odd:int64; B_name:string; B_odd:int64; datetime:int64; amount:int64}
- 
+
     //System.String event_title, System.String link, System.Int64 event_date, System.String A_name, System.Int64 A_odd, System.String B_name, System.Int64 B_odd, System.Int64 datetime, System.Int64 amount
 
- let insertOdds (data:betfair.Odds) (amount:int) (premium:float)=
+ let insertOdds (data:Odds) (amount:int) (premium:float)=
     let databaseFilename = "../../../Data/recommendations.sqlite"
     let connectionStringFile = sprintf "Data Source=%s;Version=3;" databaseFilename      
     let famount = (amount |> float) 
@@ -39,8 +38,8 @@ module odds =
 
     connection.Execute (insertTradeSql, odds)
    
- let getOdds ()=
-    let databaseFilename = "../../../Data/recommendations.sqlite"
+ let getOdds() =
+    let databaseFilename = "../../../TennisBettingApp/Data/recommendations.sqlite"
     let connectionStringFile = sprintf "Data Source=%s;Version=3;" databaseFilename      
    
     let connection =  new SQLiteConnection(connectionStringFile) 

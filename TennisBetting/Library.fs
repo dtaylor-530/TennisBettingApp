@@ -4,6 +4,7 @@ open System
 
 module mod1 =
     open datapoints
+    open RegressionSmooth
 
     //Get premium
     let GetPremium c =  let winProbability = (100.0 / (c.MaxW.Value |> double))
@@ -36,12 +37,9 @@ module mod1 =
                                                           let (mean, var) =  if profit.Length=1    
                                                                              then (profit |> Seq.head,1000.0) 
                                                                              else profit |> Seq.meanAndVariance
-                                                          let (mean, var) =  if profit.Length=1    
-                                                                             then (profit |> Seq.head,1000.0) 
-                                                                             else profit |> Seq.meanAndVariance
                                                           let (mean, var) =  if var = 0.0 then (mean,1000.0) else (mean, var)
                                                           (ratio,mean, var, avgPremium, records.Length))
-                            |> Seq.sortBy (fun (ratio,b,c,d,e) -> ratio)
+                            |> Seq.sortBy (fun (ratio,_,_,_,_) -> ratio)
                             |> Seq.toArray
     
     let GetBetAmount (i:int) y = 

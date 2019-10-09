@@ -4,11 +4,9 @@ open Dapper
 open common
 
 module datapoints =
+ open RegressionSmooth
 
- type DataPoint ={ atp:int64; ratio:int64;mean:int64;variance:int64; avgPremium:int64; weight:int64}
-
-
- let insertPoints data=
+ let insertPoints (data:seq<DataPoint>) =
     let databaseFilename = getFileName
     let connectionStringFile = sprintf "Data Source=%s;Version=3;" databaseFilename      
    
@@ -46,7 +44,7 @@ module datapoints =
     let results = connection.Query<DataPoint> filteredSql
     results
 
- let getPoints (atp:int)=
+ let getPoints (atp:int) =
     let databaseFilename =getFileName
     let connectionStringFile = sprintf "Data Source=%s;Version=3;" databaseFilename      
    

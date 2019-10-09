@@ -5,24 +5,28 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="common.fs" />
-    <Compile Include="results.fs" />
-    <Compile Include="betfair.fs" />
-    <Compile Include="odds.fs" />
+    <Compile Include="Model\model.fs" />
+    <Compile Include="Common\common.fs" />
+    <Compile Include="Common\Seq.fs" />
+    <Compile Include="DAL\betfair.fs" />
+    <Compile Include="DAL\csv.fs" />
+    <Compile Include="DAL\datasources.fs" />
+    <Compile Include="DAL\tournaments.fs" />
+    <Compile Include="DAL\datapoints.fs" />
+    <Compile Include="DAL\odds.fs" />
+    <Compile Include="DAL\results.fs" />
     <Compile Include="profit.fs" />
-    <Compile Include="datapoints.fs" />
-    <Compile Include="tournaments.fs" />
-    <Compile Include="datasources.fs" />
-    <Compile Include="Seq.fs" />
-    <Compile Include="record.fs" />
-    <Compile Include="csv.fs" />
     <Compile Include="Library.fs" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dapper" Version="2.0.30" />
+    <PackageReference Include="Dapper" Version="1.60.6" />
     <PackageReference Include="FSharp.Data" Version="3.1.1" />
     <PackageReference Include="System.Data.SQLite" Version="1.0.111" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RegressionSmooth\RegressionSmooth.fsproj" />
   </ItemGroup>
 
 </Project>
